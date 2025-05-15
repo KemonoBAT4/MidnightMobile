@@ -1,0 +1,12 @@
+{
+    "fullscreen": false,
+    "minimize_to_tray": true,
+
+    "name": "Midnight",
+    "language": "en-US",
+    "theme": "dark",
+    "font": {
+        "family": "Arial",
+        "size": 12
+    }
+}
