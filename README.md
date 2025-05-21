@@ -1,4 +1,4 @@
-# Midnight (Jarvis)
+# Midnight
 An AI-powered application that utilizes voice activation to seamlessly open folders, files, programs, and browsers with specified URLs or search queries. This intelligent assistant is designed to streamline daily tasks and enhance user experience.
 
 ### Getting Started
@@ -12,8 +12,7 @@ An AI-powered application that utilizes voice activation to seamlessly open fold
 
 1. Clone the repository: `git clone https://github.com/KemonoBAT4/Midnight.git`
 2. Install required dependencies: `pip install -r requirements.txt`
-3. Run the application: `python .\src\main.py`
-
+3. Run the application: `python .\midnight.py`
 
 ## More info About the project:
 
