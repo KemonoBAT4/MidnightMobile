@@ -27,19 +27,26 @@ class Midnight(QMainWindow):
             self.setMinimumSize(1000, 800)
             self.showMaximized()
 
-            self.createHome()
+            self._homepage()
 
-            self.create_toolbar()
-            self.create_main_content()
+            # self.create_toolbar()
+            # self.create_main_content()
 
         except Exception as e:
             sys.exit(0)
         #endtry
     #enddef
 
-    def createHome(self):
+    def _homepage(self):
+
+        # creates the chat widget
+        self._chatWidget()
+    #enddef
+
+    def _chatWidget(self):
         pass
     #enddef
+
 
     def create_toolbar(self):
         toolbar = QToolBar(self)
