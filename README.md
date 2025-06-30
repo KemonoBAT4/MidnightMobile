@@ -4,13 +4,13 @@ An AI-powered application that utilizes voice activation to seamlessly open fold
 ### Getting Started
 #### Releases
 
-1. Download the latest release: [Download](https://github.com/KemonoBAT4/Midnight/releases/latest)
+1. Download the latest release: [Download](https://github.com/KemonoBAT4/MidnightMobile/releases/latest)
 2. install and run
 3. enjoy
 
 #### Development Environment
 
-1. Clone the repository: `git clone https://github.com/KemonoBAT4/Midnight.git`
+1. Clone the repository: `git clone https://github.com/KemonoBAT4/MidnightMobile.git`
 2. Install required dependencies: `pip install -r requirements.txt`
 3. Run the application: `python .\midnight.py`
 
