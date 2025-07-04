@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Server Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .architecture-diagram {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .component {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Scalable AI Server Architecture</h1>
+            <p class="text-xl text-gray-600">Interactive solution for local AI models with future scalability</p>
+        </div>
+
+        <div class="architecture-diagram">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Architecture Overview</h2>
+            
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="component">
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">1. API Gateway</h3>
+                    <p class="text-gray-600">Node.js server handling HTTP requests and routing</p>
+                </div>
+                <div class="component">
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">2. AI Service Layer</h3>
+                    <p class="text-gray-600">Python services for model inference and processing</p>
+                </div>
+                <div class="component">
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">3. Feature Modules</h3>
+                    <p class="text-gray-600">Plug-in system for additional features</p>
+                </div>
+            </div>
+
+            <img src="https://placehold.co/1200x600" alt="Architecture diagram showing Node.js API gateway communicating with Python AI services through gRPC, with modular feature components connected via message queue" class="w-full rounded-lg mb-6" />
+        </div>
+
+        <div class="component mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Implementation Example</h2>
+            
+            <h3 class="text-xl font-medium text-gray-800 mb-2">1. Node.js API Server</h3>
+            <div class="code-block">
+const express = require('express');
+const { PythonShell } = require('python-shell');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Route for AI model interaction
+app.post('/api/ai/predict', async (req, res) => {
+    try {
+        const options = {
+            mode: 'text',
+            pythonPath: '/usr/bin/python3',
+            scriptPath: './ai_services',
+            args: [JSON.stringify(req.body)]
+        };
+
+        PythonShell.run('model_handler.py', options, (err, results) => {
+            if (err) throw err;
+            res.json(JSON.parse(results[0]));
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ status: 'healthy' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}`);
+});
+            </div>
+
+            <h3 class="text-xl font-medium text-gray-800 mt-6 mb-2">2. Python AI Service (model_handler.py)</h3>
+            <div class="code-block">
+import json
+import sys
+from your_ai_library import YourModel
+
+# Load model (do this once at startup)
+model = YourModel.load('path/to/your/model')
+
+def process_request(input_data):
+    # Perform inference
+    result = model.predict(input_data)
+    return {'prediction': result.tolist(), 'confidence': float(result.confidence)}
+
+if __name__ == '__main__':
+    # Get input from Node.js
+    input_data = json.loads(sys.argv[1])
+    
+    # Process and return result
+    output = process_request(input_data)
+    print(json.dumps(output))
+            </div>
+        </div>
+
+        <div class="component">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Scalability Features</h2>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">Horizontal Scaling</h3>
+                    <ul class="list-disc pl-5 text-gray-600">
+                        <li>Containerize with Docker for easy deployment</li>
+                        <li>Use Kubernetes for orchestration</li>
+                        <li>Load balance between multiple AI service instances</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">Modular Architecture</h3>
+                    <ul class="list-disc pl-5 text-gray-600">
+                        <li>Separate API layer from business logic</li>
+                        <li>Feature flags for enabling/disabling modules</li>
+                        <li>Message queue (RabbitMQ) for async processing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-medium text-gray-800 mt-6 mb-2">Future Feature Integration</h3>
+            <div class="code-block">
+// Example of adding new features
+app.use('/api/new-feature', require('./features/new-feature/router'));
+
+// In features/new-feature/router.js:
+const express = require('express');
+const router = express.Router();
+
+router.post('/process', async (req, res) => {
+    // Implementation for new feature
+});
+
+module.exports = router;
+            </div>
+        </div>
+
+        <div class="mt-12 bg-blue-50 p-6 rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recommended Tech Stack</h2>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-medium text-gray-800 mb-2">Core</h3>
+                    <ul class="text-gray-600">
+                        <li>Node.js (Express/Fastify)</li>
+                        <li>Python (FastAPI/Flask)</li>
+                        <li>gRPC for inter-service comms</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-medium text-gray-800 mb-2">AI</h3>
+                    <ul class="text-gray-600">
+                        <li>PyTorch/TensorFlow</li>
+                        <li>ONNX Runtime</li>
+                        <li>HuggingFace Transformers</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-medium text-gray-800 mb-2">Scaling</h3>
+                    <ul class="text-gray-600">
+                        <li>Docker + Kubernetes</li>
+                        <li>Redis for caching</li>
+                        <li>RabbitMQ/NATS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
