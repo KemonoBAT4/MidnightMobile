@@ -1,10 +1,19 @@
-# Midnight
+# Midnight - Server
+
+Thia is the server for the [Midnight](https://github.com/KemonoBAT4/Midnight) app, featuring all the handlers for all the api requests, including the ai interactions, made by a custom model.
+
+## Getting started
+
+## Features
+
+
+
 An AI-powered application that utilizes voice activation to seamlessly open folders, files, programs, and browsers with specified URLs or search queries. This intelligent assistant is designed to streamline daily tasks and enhance user experience.
 
 ### Getting Started
 #### Releases
 
-1. Download the latest release: [Download](https://github.com/KemonoBAT4/MidnightMobile/releases/latest)
+1. Download the latest release: [Download](https://github.com/KemonoBAT4/MidnightServer/releases/latest)
 2. install and run
 3. enjoy
 
